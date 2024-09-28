@@ -1,0 +1,2 @@
+//shows filter options all/top(this month/this year/all time)/platform(ps4/pc/xbox etc)/genre(horror/racing/sports etc)
+//when filter is clicked updates state in parent component which passes to shoppage

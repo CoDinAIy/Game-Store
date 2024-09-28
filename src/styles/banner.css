@@ -1,0 +1,25 @@
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+.navigation {
+    display: flex;
+    flex-basis: 35%;
+    gap: 5em;
+    font-size: 18px;
+}
+
+.title {
+    font-size: 24px;
+    flex-basis: 25%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cart {
+    display: flex;
+    justify-content: flex-end;
+}
