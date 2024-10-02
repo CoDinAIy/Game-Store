@@ -1,0 +1,42 @@
+.cart-container {
+    padding: 30px;
+    background-color: black;
+    color: white;
+    max-width: 300px;
+    width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(100%)
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%)
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0)
+    }
+    to {
+        transform: translateX(100%)
+    }
+}
+
+.show {
+    animation: slideIn 0.5s forwards ease-in-out
+}
+
+.hide {
+    animation: slideOut 0.5s forwards ease-in-out
+
+}
+
+
+
