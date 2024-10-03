@@ -1,4 +1,61 @@
 .main-container {
     display: flex;
+    flex-direction: column;
     flex: 10;
+}
+
+.loading {
+    font-size: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+
+.section-two {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2em;
+    margin: 2em 2em 2em 2em ;
+    overflow-y: scroll;
+
+}
+
+.game-card {
+    border: solid 1px black;
+    border-radius: 20px 20px;
+}
+
+.game-img {
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cart-price-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.platforms-supported-container {
+    display: flex;
+    gap: 0.5em;
+}
+
+.game-title {
+    font-size: 20px;
+}
+
+.platform-icon {
+    font-size: 10px;
+}
+
+.game-info {
+    padding: 0.5em;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
 }
