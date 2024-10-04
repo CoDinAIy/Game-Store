@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     flex: 10;
+    background-color: black;
 }
 
 .loading {
@@ -11,6 +12,44 @@
     align-items: center;
     height: 100vh;
     text-align: center;
+    color: white;
+}
+
+.section-one {
+    color: white;
+    margin: 2em 2em 0em 2em;
+}
+
+.sort-label {
+    font-size: 18px;
+    margin-right: 0.2em;
+}
+
+.sort {
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding: 1em 2em 1em 2em;
+    border-radius: 20px;
+}
+
+select {
+    border: none;
+    background-color: white;
+    font-size: 16px;
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    -moz-appearance: none; /* Remove default styling in Firefox */
+    appearance: none; /* Remove default styling in other browsers */
+}
+
+.filter-title {
+    font-size: 48px;
+    font-weight: 800;
+    margin-bottom: 0.5em;
+}
+
+option {
+    font-size: 16px;
 }
 
 
@@ -24,8 +63,8 @@
 }
 
 .game-card {
-    border: solid 1px black;
     border-radius: 20px 20px;
+    background-color: white;
 }
 
 .game-img {

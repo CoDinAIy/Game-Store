@@ -4,13 +4,14 @@
 import ShopPage from "./shopPage"
 import Sidebar from "./shopSidebar"
 import '../styles/shop.css'
+import { useState } from "react"
 
 export default function Shop() {
-    ShopPage()
+    const [currentFilter, setCurrentFilter] = useState('all-time')
     return (
         <div className="store-container">
-            <Sidebar/>
-            <ShopPage/>
+            <Sidebar currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+            <ShopPage currentFilter={currentFilter}/>
         </div>
         
     )

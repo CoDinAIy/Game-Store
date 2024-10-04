@@ -2,30 +2,71 @@
 //when filter is clicked updates state in parent component which passes to shoppage
 import '../styles/shopSidebar.css'
 
-export default function sidebar() {
+export function Filters({filterList, currentFilter, setCurrentFilter}) {
+
+    const updateFilter = (newFilter) => {
+        setCurrentFilter(newFilter)
+        console.log(`current filter = ${currentFilter}`)
+    }
+
+    return (
+        <>
+            {filterList.map((filter) => (
+                <div key={filter[0]} className={filter[0]} onClick={() => updateFilter(filter[0])}>
+                    {filter[1]}
+                </div>
+            ))}
+        </>
+    )
+}
+
+export default function Sidebar({currentFilter, setCurrentFilter}) {
+
+    const topFilters = [
+        ['all-time', 'All time'],
+        ['this-year', 'This year']
+    ]
+
+    const platformFilters = [
+        ['pc', 'PC'],
+        ['playstation', 'Playstation'],
+        ['xbox', 'Xbox One'],
+        ['nintendo', 'Nintendo Switch'],
+        ['ios', 'iOS'],
+        ['android', 'Android']
+    ]
+
+    const genreFilters = [
+        ['action','Action'],
+        ['strategy','Strategy'],
+        ['rpg','RPG'],
+        ['shooter','Shooter'],
+        ['adventure','Adventure'],
+        ['puzzle','Puzzle'],
+        ['racing','Racing'],
+        ['sports','Sports']
+    ]
     return (
         <div className="sidebar-container">
-            <div className="top-games-container">
-                <div className="top-all-time">All time</div>
-                <div className="top-this-year">This Year</div>
-            </div>
-            <div className="platforms-container">
-                <div className="pc">PC</div>
-                <div className="playstation">PlayStation</div>
-                <div className="xbox">Xbox One</div>
-                <div className="nintendo-switch">Nintendo Switch</div>
-                <div className="ios">iOS</div>
-                <div className="android">Android</div>
-            </div>
-            <div className="genres-container">
-                <div className="action">Action</div>
-                <div className="strategy">Strategy</div>
-                <div className="rpg">RPG</div>
-                <div className="shooter">Shooter</div>
-                <div className="adventure">Adventure</div>
-                <div className="puzzle">Puzzle</div>
-                <div className="racing">Racing</div>
-                <div className="sports">Sports</div>
+            <div className="content">
+                <div className="top-games filter-container">
+                    <div className="top-games-title">Top</div>
+                    <div className="top-games">
+                        <Filters filterList={topFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+                    </div>
+                </div>
+                <div className="platforms filter-container">
+                    <div className="platforms-title">Platforms</div>
+                    <div className="platforms">
+                        <Filters filterList={platformFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+                    </div>
+                </div>
+                <div className="genres filter-container">
+                    <div className="genres-title">Genres</div>
+                    <div className="genres">
+                        <Filters filterList={genreFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+                    </div>
+                </div>
             </div>
         </div>
     )
