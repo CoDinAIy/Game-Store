@@ -49,23 +49,41 @@ const FetchData = ({currentFilter}) => {
         .finally(() => setLoading(false))
     },[url])
 
-    useEffect(() => {
-        fetch('https://api.rawg.io/api/platforms?key=1118413f30d3421eb485bf2a930ea5ac', { mode: 'cors' })
-            .then((response) => {
-                if (response.status >= 400) {
-                    throw new Error('Server error');
-                }
-                return response.json();
-            })
-            .then((response) => console.log(response))
-            .catch((error) => console.error(error));
-    }, []);
-    
-
     return { error, loading, data}
 }
 
-export function GameCard({game}) {
+
+export function GameCard({game, setSelectedGame, setScreenshots, setDescription, screenshots, description}) {
+    
+
+    const clickedGame = (game, setSelectedGame) => {
+        const id = game.id
+
+        fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
+        .then((response) => {
+                if (response.status >= 400) {
+                        throw new Error('Server error');
+                    }
+                    return response.json();
+                })
+                .then((response) => setScreenshots(response.results))
+                .catch((error) => console.error(error));
+
+        fetch(`https://api.rawg.io/api/games/${id}?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
+        .then((response) => {
+                if (response.status >= 400) {
+                        throw new Error('Server error');
+                    }
+                    return response.json();
+                })
+                .then((response) => setDescription(response.description_raw))
+                .catch((error) => console.error(error));
+
+        setSelectedGame(game)
+        console.log(screenshots)
+        console.log(description)
+    }
+
 
     const excludedPlatforms = [
         'Linux',
@@ -81,7 +99,7 @@ export function GameCard({game}) {
 
     return (
         <div className="game-card">
-            <img className='game-img' src={game.background_image} alt="" height={50} width={50}/>
+            <img className='game-img' src={game.background_image} alt="" height={50} width={50} onClick={() => clickedGame(game, setSelectedGame)}/>
             <div className="game-info">
                 <div className="cart-price-container">
                     <div className="add-to-cart">Add to cart +</div>
@@ -93,16 +111,28 @@ export function GameCard({game}) {
                         
                     ))}
                 </div>
-                <div className="game-title">{game.name}</div>
+                <div className="game-title" onClick={() => clickedGame(game, setSelectedGame)}>{game.name} </div>
             </div>
         </div>
     )
 }
 
+
+
 export default function ShopPage({currentFilter}) {
+    const [selectedGame, setSelectedGame] = useState(null)
+    const [screenshots, setScreenshots] = useState(null)
+    const [description, setDescription] = useState(null)
+
     const {error, loading, data} = FetchData({currentFilter})
 
     const games = data && data.results ? data.results : []
+
+    const closeClickedGame = () => {
+        setSelectedGame(null)
+        setScreenshots(null)
+        setDescription(null)
+    }
 
     return (
         <div className="main-container">
@@ -122,13 +152,26 @@ export default function ShopPage({currentFilter}) {
             {!loading && !error && (
                 <div className="section-two">
                     {games.map((game) => (
-                        <GameCard key={game.name} game={game}/>
+                        <GameCard key={game.name} game={game} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} setDescription={setDescription} screenshots={screenshots} description={description}/>
                     ))}
                 </div>
 
             )}
-
-
+            {selectedGame && (
+                <div className='clicked-game-container'>
+                    <div className="clicked-game-content">
+                        <img className='clicked-game-image' src={selectedGame.background_image} alt="game image" />
+                        <div className="clicked-game-info">
+                            <div className="close-clicked-game" onClick={() => closeClickedGame()}>Close</div>
+                            <div className="cilcked-game-name">{selectedGame.name}</div>
+                            <div className="about-container">
+                                <div className="about-title">About</div>
+                                <div className="about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab fugiat, illo labore placeat nulla quidem consequatur doloremque in ipsa debitis magnam, assumenda magni obcaecati nesciunt maxime odio voluptates, et itaque.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            )}
         </div>
     )
 } 
