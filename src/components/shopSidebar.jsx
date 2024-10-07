@@ -2,17 +2,19 @@
 //when filter is clicked updates state in parent component which passes to shoppage
 import '../styles/shopSidebar.css'
 
-export function Filters({filterList, currentFilter, setCurrentFilter}) {
+export function Filters({filterList, currentFilter, setCurrentFilter, setTitle}) {
 
-    const updateFilter = (newFilter) => {
+    const updateFilter = (e, newFilter) => {
         setCurrentFilter(newFilter)
+        setTitle(e.target.innerHTML)
+
         console.log(`current filter = ${currentFilter}`)
     }
 
     return (
         <>
             {filterList.map((filter) => (
-                <div key={filter[0]} className={filter[0]} onClick={() => updateFilter(filter[0])}>
+                <div key={filter[0]} className={filter[0]} onClick={(e) => updateFilter(e, filter[0])}>
                     {filter[1]}
                 </div>
             ))}
@@ -20,7 +22,7 @@ export function Filters({filterList, currentFilter, setCurrentFilter}) {
     )
 }
 
-export default function Sidebar({currentFilter, setCurrentFilter}) {
+export default function Sidebar({currentFilter, setCurrentFilter, setTitle}) {
 
     const topFilters = [
         ['all-time', 'All time'],
@@ -52,19 +54,19 @@ export default function Sidebar({currentFilter, setCurrentFilter}) {
                 <div className="top-games filter-container">
                     <div className="top-games-title">Top</div>
                     <div className="top-games">
-                        <Filters filterList={topFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+                        <Filters filterList={topFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} setTitle={setTitle}/>
                     </div>
                 </div>
                 <div className="platforms filter-container">
                     <div className="platforms-title">Platforms</div>
                     <div className="platforms">
-                        <Filters filterList={platformFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+                        <Filters filterList={platformFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} setTitle={setTitle}/>
                     </div>
                 </div>
                 <div className="genres filter-container">
                     <div className="genres-title">Genres</div>
                     <div className="genres">
-                        <Filters filterList={genreFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
+                        <Filters filterList={genreFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} setTitle={setTitle}/>
                     </div>
                 </div>
             </div>

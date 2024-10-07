@@ -8,10 +8,12 @@ import { useState } from "react"
 
 export default function Shop() {
     const [currentFilter, setCurrentFilter] = useState('all-time')
+    const [title, setTitle] = useState('All Time')
+    
     return (
         <div className="store-container">
-            <Sidebar currentFilter={currentFilter} setCurrentFilter={setCurrentFilter}/>
-            <ShopPage currentFilter={currentFilter}/>
+            <Sidebar currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} title={title} setTitle={setTitle}/>
+            <ShopPage currentFilter={currentFilter} title={title}/>
         </div>
         
     )

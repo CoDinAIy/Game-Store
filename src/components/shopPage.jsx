@@ -2,9 +2,20 @@
 //takes in filter and updates according to filter
 //for each filter title of filter followed by select sort by form option which sorts accordingly
 import '../styles/shopPage.css'
+import PC from '../assets/PC.png'
+import Xbox from '../assets/Xbox.png'
+import iOS from '../assets/iOS.png'
+import Android from '../assets/Android.png'
+import Playstation from '../assets/Playstation.png'
+import Nintendo from '../assets/Nintendo.png'
 
 import { useState, useEffect } from "react";
-const FetchData = ({currentFilter}) => {
+const FetchData = ({currentFilter, sort}) => {
+
+    console.log(`sort = ${sort}`)
+
+    //have sort parameter
+    //depending on sort param add sort query to end of url
 
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
@@ -34,7 +45,17 @@ const FetchData = ({currentFilter}) => {
     };
     
 
-    let url = filters[currentFilter]
+    let url
+
+    if (sort === 'Popularity') {
+        url = filters[currentFilter]
+    } else if (sort === 'Rating') {
+        url = `${filters[currentFilter]}&&ordering=-rating`
+    } else if (sort === 'Newest') {
+        url = `${filters[currentFilter]}&&ordering=-released`
+    } else {
+        url = filters[currentFilter]
+    }
 
     useEffect(() => {
         fetch(url, {mode: 'cors'})
@@ -49,11 +70,31 @@ const FetchData = ({currentFilter}) => {
         .finally(() => setLoading(false))
     },[url])
 
+
+fetch('https://api.rawg.io/api/platforms?key=1118413f30d3421eb485bf2a930ea5ac', {mode: 'cors'})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+    return response.json()
+  })
+  .then(data => {
+    console.log(data)
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error)
+  });
+
+
     return { error, loading, data}
 }
 
+function UpdateCart(game) {
+    console.log(game)
+}
 
-export function GameCard({game, setSelectedGame, setScreenshots, setDescription, screenshots, description}) {
+
+export function GameCard({game, setSelectedGame, setScreenshots, screenshots}) {
     
 
     const clickedGame = (game, setSelectedGame) => {
@@ -76,40 +117,54 @@ export function GameCard({game, setSelectedGame, setScreenshots, setDescription,
                     }
                     return response.json();
                 })
-                .then((response) => setDescription(response.description_raw))
+                .then((response) => setSelectedGame(response))
                 .catch((error) => console.error(error));
 
-        setSelectedGame(game)
-        console.log(screenshots)
-        console.log(description)
+
     }
 
 
-    const excludedPlatforms = [
-        'Linux',
-        'Xbox 360',
-        'PlayStation 3',
-        'PS Vita',
-        'Wii U',
-        'macOS',
-        'Xbox Series S/X'
+    const includedPlatforms = [
+        'PC',
+        'Xbox One',
+        'PlayStation 5',
+        'Nintendo Switch',
+        'iOS',
+        'Android',
     ];
 
-    const newPlatforms = game.platforms.filter((platform) => !excludedPlatforms.includes(platform.platform.name))
+    const platformIcon = {
+        'PC': PC,
+        'Xbox One': Xbox,
+        'Android': Android,
+        'iOS': iOS,
+        'PlayStation 5': Playstation,
+        'PlayStation 4': Playstation,
+        'Nintendo Switch': Nintendo
+
+    }
+
+    const newPlatforms = game.platforms ? game.platforms.filter((platform) => includedPlatforms.includes(platform.platform.name)) : null
+
+    console.log(newPlatforms)
+
 
     return (
         <div className="game-card">
-            <img className='game-img' src={game.background_image} alt="" height={50} width={50} onClick={() => clickedGame(game, setSelectedGame)}/>
+            <img className='game-img' src={game.background_image} alt="" onClick={() => clickedGame(game, setSelectedGame)}/>
             <div className="game-info">
                 <div className="cart-price-container">
-                    <div className="add-to-cart">Add to cart +</div>
+                    <div className="add-to-cart" onClick={() => UpdateCart(game)}>Add to cart +</div>
                     <div className="price">$4.99</div>
                 </div>
                 <div className="platforms-supported-container">
-                    {newPlatforms.map((platform) => (
-                        <div key={`${game.name}+${platform.platform.name}`} className="platform-icon">{platform.platform.name}</div>
+                    {newPlatforms ? newPlatforms.map((platform) => (
+                        <>
                         
-                    ))}
+                        <img src={platformIcon[platform.platform.name]} alt="" width='20px' height='20px' />
+                        </>
+                        
+                    )) : null}
                 </div>
                 <div className="game-title" onClick={() => clickedGame(game, setSelectedGame)}>{game.name} </div>
             </div>
@@ -119,54 +174,69 @@ export function GameCard({game, setSelectedGame, setScreenshots, setDescription,
 
 
 
-export default function ShopPage({currentFilter}) {
+export default function ShopPage({currentFilter, title}) {
     const [selectedGame, setSelectedGame] = useState(null)
     const [screenshots, setScreenshots] = useState(null)
-    const [description, setDescription] = useState(null)
+    const [sort, setSort] = useState('')
 
-    const {error, loading, data} = FetchData({currentFilter})
+    const {error, loading, data} = FetchData({currentFilter, sort})
 
-    const games = data && data.results ? data.results : []
+    let games = data && data.results ? data.results : []
 
     const closeClickedGame = () => {
         setSelectedGame(null)
         setScreenshots(null)
-        setDescription(null)
+    }
+
+    const setSorted = (type) => {
+        setSort(type)
+        console.log(type)
     }
 
     return (
         <div className="main-container">
             <div className="section-one">
-                <div className="filter-title">Filter Title</div>
+                <div className="filter-title">{title}</div>
                 <div className="sort">
                     <label className='sort-label' htmlFor="sort">Sort by:</label>
-                    <select className='sort-select' name='sort' id="sort">
+                    <select className='sort-select' name='sort' id="sort" onChange={(e) => setSorted(e.target.value)}>
                         <option value="Popularity">Popularity</option>
                         <option value="Rating">Rating</option>
                         <option value="Newest">Newest</option>
                     </select>
                 </div>
             </div>
+
             {loading && <div className="loading">Loading</div>}
+
             {error && <div className="error">Error has occured</div>}
+
             {!loading && !error && (
                 <div className="section-two">
                     {games.map((game) => (
-                        <GameCard key={game.name} game={game} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} setDescription={setDescription} screenshots={screenshots} description={description}/>
+                        <GameCard key={game.name} game={game} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots}/>
                     ))}
                 </div>
 
             )}
+
             {selectedGame && (
                 <div className='clicked-game-container'>
                     <div className="clicked-game-content">
                         <img className='clicked-game-image' src={selectedGame.background_image} alt="game image" />
                         <div className="clicked-game-info">
                             <div className="close-clicked-game" onClick={() => closeClickedGame()}>Close</div>
-                            <div className="cilcked-game-name">{selectedGame.name}</div>
+                            <div className="clicked-game-name">{selectedGame.name}</div>
                             <div className="about-container">
                                 <div className="about-title">About</div>
-                                <div className="about">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab fugiat, illo labore placeat nulla quidem consequatur doloremque in ipsa debitis magnam, assumenda magni obcaecati nesciunt maxime odio voluptates, et itaque.</div>
+                                {!selectedGame.description_raw ? <div className='loading-about'>Loading</div> : <div className="about">{selectedGame.description_raw}</div>}
+                            </div>
+                            <div className="game-facts">
+                                <div className="released">Released: {selectedGame.released ? `${selectedGame.released.slice(8,10)}/${selectedGame.released.slice(5,7)}/${selectedGame.released.slice(0,4)}` : 'N/A'}</div>
+                                <div className="rating">Rating: {selectedGame.rating}</div>
+                                <div className="platforms">Platforms: {selectedGame.platforms.map((platform, index) => index === selectedGame.platforms.length - 1 ? platform.platform.name : `${platform.platform.name}, `)}</div>
+                                <div className="genres">Genres: {selectedGame.genres.map((genre, index) => index === selectedGame.genres.length - 1 ? genre.name : `${genre.name}, `)}</div>
+                                <div className="publishers">Publishers: {selectedGame.publishers.map((publisher, index) => index === selectedGame.publishers.length - 1 ? publisher.name : `${publisher.name}, `)}</div>
                             </div>
                         </div>
                     </div>

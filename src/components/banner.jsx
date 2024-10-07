@@ -19,7 +19,7 @@ export default function Banner(setCartShow) {
             <div className='navigation'>
                 <Link to="/" className="home">Home</Link>
                 <Link to="/shop" className="store">Store</Link>
-                <Link to="/about" className="about">About</Link>
+                <Link to="/about" className="about-banner">About</Link>
             </div>
             <div className="cart" onClick={() => toggleCart(setCartShow)}>
                 <img src={cart} alt="cart" width='40' height='40'/>
