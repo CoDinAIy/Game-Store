@@ -12,7 +12,6 @@ import Nintendo from '../assets/Nintendo.png'
 import { useState, useEffect } from "react";
 const FetchData = ({currentFilter, sort}) => {
 
-    console.log(`sort = ${sort}`)
 
     //have sort parameter
     //depending on sort param add sort query to end of url
@@ -20,7 +19,6 @@ const FetchData = ({currentFilter, sort}) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-
     const currentYear = new Date().getFullYear()
     const startDate = `${currentYear}-01-01`
     const endDate = `${currentYear}-12-31`
@@ -71,19 +69,19 @@ const FetchData = ({currentFilter, sort}) => {
     },[url])
 
 
-fetch('https://api.rawg.io/api/platforms?key=1118413f30d3421eb485bf2a930ea5ac', {mode: 'cors'})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok')
-    }
-    return response.json()
-  })
-  .then(data => {
-    console.log(data)
-  })
-  .catch(error => {
-    console.error('There has been a problem with your fetch operation:', error)
-  });
+// fetch('https://api.rawg.io/api/games/3248?key=1118413f30d3421eb485bf2a930ea5ac', {mode: 'cors'})
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok')
+//     }
+//     return response.json()
+//   })
+//   .then(data => {
+//     console.log(data)
+//   })
+//   .catch(error => {
+//     console.error('There has been a problem with your fetch operation:', error)
+//   });
 
 
     return { error, loading, data}
@@ -94,32 +92,57 @@ function UpdateCart(game) {
 }
 
 
-export function GameCard({game, setSelectedGame, setScreenshots, screenshots}) {
+export function GameCard({game, setSelectedGame, setScreenshots, screenshots, selectedGame}) {
+
+
     
 
     const clickedGame = (game, setSelectedGame) => {
         const id = game.id
 
-        fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
-        .then((response) => {
-                if (response.status >= 400) {
-                        throw new Error('Server error');
-                    }
-                    return response.json();
-                })
-                .then((response) => setScreenshots(response.results))
-                .catch((error) => console.error(error));
+        const fetchData = async() => {
+            try {
+                const gameResponse = await fetch(`https://api.rawg.io/api/games/${id}?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
+                if (gameResponse.status >= 400) {
+                    throw new Error('Server error')
+                }
+                const gameData = await gameResponse.json()
+                setSelectedGame(gameData)
+                setScreenshots([gameData.background_image])
 
-        fetch(`https://api.rawg.io/api/games/${id}?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
-        .then((response) => {
-                if (response.status >= 400) {
-                        throw new Error('Server error');
-                    }
-                    return response.json();
-                })
-                .then((response) => setSelectedGame(response))
-                .catch((error) => console.error(error));
+                const screenshotsResponse = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
+                if (screenshotsResponse.status >= 400) {
+                    throw new Error('Server error')
+                }
+                const screenshotsData = await screenshotsResponse.json()
+                setScreenshots((prev) => [prev, ...screenshotsData.results.map((result) => result.image)])
 
+          } catch (error) {
+            console.log(error)
+          }
+        }
+
+        fetchData()
+
+        // fetch(`https://api.rawg.io/api/games/${id}?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
+        // .then((response) => {
+        //         if (response.status >= 400) {
+        //                 throw new Error('Server error');
+        //             }
+        //             return response.json();
+        //         })
+        //         .then((response) => (setSelectedGame(response),console.log(response)))
+        //         .catch((error) => console.error(error));
+
+        // fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
+        // .then((response) => {
+        //         if (response.status >= 400) {
+        //                 throw new Error('Server error');
+        //             }
+        //             return response.json();
+        //         })
+        //         .then((response) => (setScreenshots(response.results.map((result) => result.image))))
+        //         .catch((error) => console.error(error));  
 
     }
 
@@ -146,7 +169,6 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots}) {
 
     const newPlatforms = game.platforms ? game.platforms.filter((platform) => includedPlatforms.includes(platform.platform.name)) : null
 
-    console.log(newPlatforms)
 
 
     return (
@@ -159,11 +181,7 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots}) {
                 </div>
                 <div className="platforms-supported-container">
                     {newPlatforms ? newPlatforms.map((platform) => (
-                        <>
-                        
-                        <img src={platformIcon[platform.platform.name]} alt="" width='20px' height='20px' />
-                        </>
-                        
+                        <img key={platformIcon[platform.platform.name]} src={platformIcon[platform.platform.name]} alt="" width='20px' height='20px' />                        
                     )) : null}
                 </div>
                 <div className="game-title" onClick={() => clickedGame(game, setSelectedGame)}>{game.name} </div>
@@ -177,6 +195,9 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots}) {
 export default function ShopPage({currentFilter, title}) {
     const [selectedGame, setSelectedGame] = useState(null)
     const [screenshots, setScreenshots] = useState(null)
+    const [currentSlide, setCurrentSlide] = useState(0)
+    console.log(screenshots)
+
     const [sort, setSort] = useState('')
 
     const {error, loading, data} = FetchData({currentFilter, sort})
@@ -190,7 +211,14 @@ export default function ShopPage({currentFilter, title}) {
 
     const setSorted = (type) => {
         setSort(type)
-        console.log(type)
+    }
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % screenshots.length) 
+    }
+
+    const previousSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + screenshots.length) % screenshots.length);
     }
 
     return (
@@ -214,7 +242,7 @@ export default function ShopPage({currentFilter, title}) {
             {!loading && !error && (
                 <div className="section-two">
                     {games.map((game) => (
-                        <GameCard key={game.name} game={game} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots}/>
+                        <GameCard key={game.name} game={game} selectedGame={selectedGame} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots}/>
                     ))}
                 </div>
 
@@ -223,7 +251,19 @@ export default function ShopPage({currentFilter, title}) {
             {selectedGame && (
                 <div className='clicked-game-container'>
                     <div className="clicked-game-content">
-                        <img className='clicked-game-image' src={selectedGame.background_image} alt="game image" />
+                        <div className="carousel">
+                            <button className="carousel-button prev" onClick={previousSlide}>&#8592;</button>
+                            <button className="carousel-button next" onClick={nextSlide}>&#8594;</button>
+                            <ul className='carousel-slides'>
+                                {screenshots ? screenshots.map((screenshot, index) => (
+                                <li key={index} className={`slide ${index === currentSlide ? 'active' : ''}`}>
+                                    <img className='clicked-game-image' src={screenshot} alt='game picture' />
+                                </li>
+                                )) : null}
+                            </ul>
+                        </div>
+                        {/* <img className='clicked-game-image' src={selectedGame.background_image} alt="game image" /> */}
+
                         <div className="clicked-game-info">
                             <div className="close-clicked-game" onClick={() => closeClickedGame()}>Close</div>
                             <div className="clicked-game-name">{selectedGame.name}</div>
