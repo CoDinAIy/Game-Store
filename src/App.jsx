@@ -7,13 +7,17 @@ import Cart from './components/cart';
 
 function App() {
     const [cartShow, setCartShow] = useState(false)
+    const [cart, modifyCart] = useState([])
+    //cart and modifycart functionality
+    //add cart to cart component
+    //add modifycart to outlet?
     return (
         <div className="app">
 
             <Banner setCartShow={setCartShow}/>
-            <Outlet/>
+            <Outlet context={[cart, modifyCart]}/>
             {cartShow && (
-                <Cart setCartShow={setCartShow} cartShow={cartShow}/>
+                <Cart setCartShow={setCartShow} cartShow={cartShow} cart={cart} modifyCart={modifyCart}/>
             )}
         </div>
     )

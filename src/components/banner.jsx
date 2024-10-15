@@ -4,16 +4,22 @@
 import '../styles/banner.css'
 import cart from '../assets/cart.svg'
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Banner(setCartShow) {
-
+    
     const toggleCart = ({setCartShow}) => {
         setCartShow(prev => !prev)
+    }
+    
+    const navigate = useNavigate()
+    const goToHome = () => {
+        navigate('/')
     }
 
     return (
         <div className='banner'>
-            <div className='title'>
+            <div className='title' onClick={goToHome}>
                 GameStore
             </div>
             <div className='navigation'>

@@ -8,8 +8,10 @@ import iOS from '../assets/iOS.png'
 import Android from '../assets/Android.png'
 import Playstation from '../assets/Playstation.png'
 import Nintendo from '../assets/Nintendo.png'
+import { useOutletContext } from 'react-router-dom'
 
 import { useState, useEffect } from "react";
+
 const FetchData = ({currentFilter, sort}) => {
 
 
@@ -22,6 +24,7 @@ const FetchData = ({currentFilter, sort}) => {
     const currentYear = new Date().getFullYear()
     const startDate = `${currentYear}-01-01`
     const endDate = `${currentYear}-12-31`
+
 
     const filters = {
         'all-time': 'https://api.rawg.io/api/games?key=1118413f30d3421eb485bf2a930ea5ac&page_size=50&&genres=action,strategy,shooter,adventure,puzzle,sports,racing,role-playing-games-rpg',
@@ -87,15 +90,17 @@ const FetchData = ({currentFilter, sort}) => {
     return { error, loading, data}
 }
 
-function UpdateCart(game) {
-    console.log(game)
-}
 
 
 export function GameCard({game, setSelectedGame, setScreenshots, screenshots, selectedGame}) {
-
-
     
+    const [cart, modifyCart] = useOutletContext()
+
+    const UpdateCart = (game) => {
+
+        cart.includes(game) ? null : modifyCart((prev) => [...prev, game])
+
+    }
 
     const clickedGame = (game, setSelectedGame) => {
         const id = game.id
@@ -196,7 +201,6 @@ export default function ShopPage({currentFilter, title}) {
     const [selectedGame, setSelectedGame] = useState(null)
     const [screenshots, setScreenshots] = useState(null)
     const [currentSlide, setCurrentSlide] = useState(0)
-    console.log(screenshots)
 
     const [sort, setSort] = useState('')
 
