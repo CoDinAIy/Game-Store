@@ -6,13 +6,21 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import '../styles/cart.css'
 import { Link } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 
 
-export default function Cart({setCartShow, cartShow, cart, modifyCart}) {
+export default function Cart({setCartShow, cartShow, cart, modifyCart, total, setTotal}) {
+
+
 
     const removeGame = (game) => {
         const newCart = cart.filter((existingGame) => existingGame !== game)
+        let newTotal = 0
         modifyCart(newCart)
+        newCart.map((game) => {
+            newTotal += game.randomPrice
+        })
+        setTotal(newTotal)
     }
 
     const [visible, setVisible] = useState(false)
@@ -39,6 +47,8 @@ export default function Cart({setCartShow, cartShow, cart, modifyCart}) {
         }
     }, [cartShow]);
 
+    
+
     return (
         <div className={`cart-container ${visible ? 'show' : 'hide'}`}>
             <div className="top-container">
@@ -50,14 +60,12 @@ export default function Cart({setCartShow, cartShow, cart, modifyCart}) {
                 {cart.length  > 0 ? (
                     cart.map((game) => (
                         <div key={game.name} className='cart-game'>
-                            <li key={game.name}>
                                 <div className="cart-game-delete" onClick={() => removeGame(game)}>X</div>
                                 <img className='cart-game-image' src={game.background_image} alt="game image" height={120} width={180}/>
                                 <div className="cart-game-info">
                                     <div className='cart-game-name'>{game.name}</div>
                                     <div className='cart-game-price'>$4.99</div>
                                 </div>
-                            </li>
                         </div>
                     ))
                 ) : (
@@ -65,11 +73,9 @@ export default function Cart({setCartShow, cartShow, cart, modifyCart}) {
                 )}
             </div>
             <div className="bottom-container">
-                <div className="subtotal">Subtotal:</div>
+                <div className="subtotal">{`Subtotal: ${total.toFixed(2)}`}</div>
                 <Link to="/checkout" className="checkout">Checkout Securely</Link>
             </div>
         </div>
     )
-    //if cart is empty return no items div
-    //if cart return a map of cart details in list
 }

@@ -1,0 +1,186 @@
+.checkout-container {
+    background-color: rgb(250, 244, 244);
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+}
+
+.items-container {
+    border: solid 1px black;
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.payment-container {
+    border: solid 1px black;
+    width: 50%;
+    height: 80%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.checkout-title {
+    padding: 1em 0 1em 0;
+    text-align: center;
+    font-size: 56px;
+}
+
+.items-payment {
+    display: flex;
+    height: calc(100%);
+    gap: 100px;
+    justify-content: spabe;    
+}
+
+.items {
+    flex: 1.5;
+    display: flex;
+    justify-content: end;
+}
+
+.payment {
+    flex: 1;
+    display: flex;
+    justify-content: start;
+}
+
+.price-checkout {
+    flex: 1;
+    font-size: 64px;
+}
+
+.checkout-games {
+    flex: 4;
+    overflow-y: scroll;
+}
+
+.costs {
+    flex: 1;
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.checkout-game {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.checkout-game-image {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.checkout-game-delete {
+    font-size: 24px;
+}
+
+.checkout-games {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    max-height: 400px;
+}
+
+.checkout-header {
+    display: flex;
+    flex: 0.5;
+    position: relative;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.checkout-game-name, .checkout-game-price {
+    font-size: 24px;
+}
+
+.checkout-game-name {
+    font-weight: bold;
+}
+
+.checkout-game-info {
+    flex: 1;
+    gap: 1em;
+    display: flex
+}
+
+.game, .price {
+    flex: 1;
+    text-align: left;
+    font-size: 32px;
+}
+
+.checkout-game-price {
+    position: absolute;
+    left: 70%;
+}
+
+.checkout-game-name {
+    max-width: 300px;
+}
+
+.checkout-game-delete {
+    position: absolute;
+    right: 1em;
+}
+
+.payment-container {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    align-self: center;
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.confirm-pay-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.confirm-pay-button:hover {
+    background-color: darkgreen;
+}
+
+.personal-information-title, .shipping-information-title {
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+
+
+
+
+
+

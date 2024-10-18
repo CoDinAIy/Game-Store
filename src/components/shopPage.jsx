@@ -92,15 +92,17 @@ const FetchData = ({currentFilter, sort}) => {
 
 
 
-export function GameCard({game, setSelectedGame, setScreenshots, screenshots, selectedGame}) {
+export function GameCard({game, setSelectedGame, setScreenshots, screenshots, selectedGame, randomPrice}) {
     
-    const [cart, modifyCart] = useOutletContext()
+    const [cart, modifyCart, total, setTotal] = useOutletContext();
 
     const UpdateCart = (game) => {
-
-        cart.includes(game) ? null : modifyCart((prev) => [...prev, game])
-
-    }
+        if (!cart.includes(game)) {
+            const gameWithPrice = {...game, randomPrice}
+            modifyCart((prev) => [...prev, gameWithPrice])
+            setTotal((prev) => prev + randomPrice);
+        }
+    };
 
     const clickedGame = (game, setSelectedGame) => {
         const id = game.id
@@ -174,6 +176,7 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots, se
 
     const newPlatforms = game.platforms ? game.platforms.filter((platform) => includedPlatforms.includes(platform.platform.name)) : null
 
+    const isGameInCart = cart.some((cartGame) => cartGame.id === game.id)
 
 
     return (
@@ -181,8 +184,12 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots, se
             <img className='game-img' src={game.background_image} alt="" onClick={() => clickedGame(game, setSelectedGame)}/>
             <div className="game-info">
                 <div className="cart-price-container">
-                    <div className="add-to-cart" onClick={() => UpdateCart(game)}>Add to cart +</div>
-                    <div className="price">$4.99</div>
+                {!isGameInCart ? (
+                    <div className="add-to-cart" onClick={() => UpdateCart(game)}>Add to Cart +</div>
+                ) : (
+                    <div className="added-to-cart">Added to Cart</div>
+                )}                    
+                <div className="game-card-price">{`$${randomPrice.toFixed(2)}`}</div>
                 </div>
                 <div className="platforms-supported-container">
                     {newPlatforms ? newPlatforms.map((platform) => (
@@ -225,6 +232,13 @@ export default function ShopPage({currentFilter, title}) {
         setCurrentSlide((prev) => (prev - 1 + screenshots.length) % screenshots.length);
     }
 
+    const randomPrice = () => {
+        const gamePrices = [2.99, 5.50, 6.90, 4.99, 3.50, 8.50]
+        return gamePrices[Math.floor(Math.random() * gamePrices.length)]
+    }
+
+
+
     return (
         <div className="main-container">
             <div className="section-one">
@@ -246,7 +260,7 @@ export default function ShopPage({currentFilter, title}) {
             {!loading && !error && (
                 <div className="section-two">
                     {games.map((game) => (
-                        <GameCard key={game.name} game={game} selectedGame={selectedGame} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots}/>
+                        <GameCard key={game.name} game={game} selectedGame={selectedGame} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots} randomPrice={randomPrice()}/>
                     ))}
                 </div>
 
@@ -266,8 +280,6 @@ export default function ShopPage({currentFilter, title}) {
                                 )) : null}
                             </ul>
                         </div>
-                        {/* <img className='clicked-game-image' src={selectedGame.background_image} alt="game image" /> */}
-
                         <div className="clicked-game-info">
                             <div className="close-clicked-game" onClick={() => closeClickedGame()}>Close</div>
                             <div className="clicked-game-name">{selectedGame.name}</div>
