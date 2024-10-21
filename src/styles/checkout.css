@@ -1,6 +1,6 @@
 .checkout-container {
     background-color: rgb(250, 244, 244);
-    height: calc(100% - 80px);
+    height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
     padding: 20px; 
@@ -191,35 +191,4 @@
 
 .game {
     font-size: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .checkout-title {
-        font-size: 2rem;
-    }
-
-    .checkout-game-name, .checkout-game-price {
-        font-size: 1rem;
-    }
-
-    .price-checkout {
-        font-size: 2rem;
-    }
-
-    .confirm-pay-button {
-        font-size: 1em;
-    }
-
-    .costs {
-        font-size: 1rem;
-    }
-
-    .items-payment {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .payment-container {
-        height: fit-content;
-    }
 }
