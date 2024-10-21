@@ -165,7 +165,7 @@ option {
 
 .clicked-game-name {
     margin-top: 50px;
-    font-size: 3em;
+    font-size: 2em;
     margin-right: 1rem;
     text-align: center;
 }
@@ -185,7 +185,7 @@ option {
 }
 
 .clicked-about-container {
-    height: 50%;
+    height: 40%;
 }
 
 .game-facts {
@@ -198,7 +198,7 @@ option {
 
 .about {
     font-size: 1em;
-    height: 80%;
+    height: 70%;
     overflow-y: scroll;
     scrollbar-width: none;
     padding: 10px;
