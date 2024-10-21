@@ -298,8 +298,12 @@ li {
         align-self: center;
     }
 
+    .clicked-game-button {
+        margin: 0;
+    }
+
     .clicked-game-name {
-        font-size: 2em;
+        font-size: 1.5em;
     }
 
     .close-clicked-game {
