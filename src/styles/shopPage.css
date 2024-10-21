@@ -292,3 +292,29 @@ li {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
+@media (max-width: 1200px) {
+    .filter-title {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .sort {
+        padding: 0.5em 1em;
+    }
+
+    .game-title {
+        font-size: 18px;
+    }
+
+    .clicked-game-name {
+        font-size: 36px;
+    }
+
+    .section-one {
+        align-self: center;
+    }
+
+    .section-two {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

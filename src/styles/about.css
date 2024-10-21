@@ -1,0 +1,135 @@
+.about-container {
+    box-sizing: border-box;
+    height: calc(100vh - 80px);
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    overflow-y: auto;
+}
+
+.about-me-title {
+    font-size: 4rem;
+    margin: 0.25em 0;
+    text-align: center;
+    font-weight: bold;
+    color: #ffcc00;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.about-me-description {
+    padding: 2em;
+    border: solid 4px #ffcc00;
+    border-radius: 20px;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-me-description:hover {
+    transform: scale(1.03);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.question {
+    font-size: 2.5rem;
+    color: #ffcc00;
+    margin-bottom: 0.2em;
+}
+
+.answer {
+    margin: 0.5em 0 2em 0;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.tools-used {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2em;
+    gap: 1em;
+}
+
+.tools-used img {
+    height: 80px;
+    transition: transform 0.3s ease;
+}
+
+.tools-used img:hover {
+    transform: scale(1.2);
+}
+
+.links {
+    position: absolute;
+    bottom: 4em;
+    padding: 1em;
+    width: 20%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.links img {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.links img:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    .about-me-title {
+        font-size: 3rem;
+    }
+
+    .about-me-description {
+        width: 80%;
+        padding: 1.5em;
+    }
+
+    .question {
+        font-size: 2rem;
+    }
+
+    .answer {
+        font-size: 1.2rem;
+    }
+
+    .links {
+        width: 40%;
+        bottom: 2em;
+    }
+}
+
+@media (max-width: 1200px) {
+    .about-me-title {
+        font-size: 2.5rem;
+    }
+
+    .about-me-description {
+        width: 90%;
+        padding: 1em;
+    }
+
+    .question {
+        font-size: 1.5rem;
+    }
+
+    .answer {
+        font-size: 1rem;
+    }
+
+    .links {
+        width: 80%;
+        bottom: 1em;
+    }
+}

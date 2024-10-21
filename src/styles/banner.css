@@ -6,28 +6,26 @@
     height: 80px;
     padding: 0 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
 .title {
-    font-size: 36px;
+    font-size: 2.25rem;
     font-weight: bold;
     color: #ffffff;
     cursor: pointer;
     transition: color 0.3s ease, transform 0.3s ease;
-
     text-transform: uppercase;
 }
 
 .title:hover {
-    color: #f39c12; 
+    color: #f39c12;
     transform: scale(1.1);
 }
 
 .navigation {
     display: flex;
     gap: 10em;
-    font-size: 24px;
+    font-size: 1.5rem;
     text-transform: uppercase;
 }
 
@@ -36,7 +34,6 @@
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
-    
 }
 
 .navigation a:hover {
@@ -53,8 +50,8 @@
 }
 
 .cart img {
-    width: 45px;
-    height: 45px;
+    width: 2.8125rem;
+    height: 2.8125rem;
     filter: brightness(0) invert(1);
 }
 
@@ -69,14 +66,22 @@
         padding: 20px 20px;
     }
     .title {
-        font-size: 28px;
+        font-size: 1.75rem;
         margin-bottom: 10px;
     }
     .navigation {
         gap: 2em;
+        font-size: 1.2rem;
     }
     .cart img {
-        width: 40px;
-        height: 40px;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigation {
+        gap: 1em;
+        font-size: 1rem;
     }
 }

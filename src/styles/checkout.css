@@ -11,7 +11,8 @@
 .items-container {
     border: solid 1px #ccc; 
     background-color: #fff;
-    width: 60%;
+    width: 100%;
+    max-width: 800px;
     height: 80%;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,8 @@
 .payment-container {
     border: solid 1px #ccc; 
     background-color: #fff; 
-    width: 50%;
+    width: 100%;
+    max-width: 600px;
     height: 80%;
     padding: 20px;
     display: flex;
@@ -36,7 +38,7 @@
 .checkout-title {
     padding: 1em 0;
     text-align: center;
-    font-size: 56px;
+    font-size: 2.5rem;
     color: #333; 
 }
 
@@ -61,7 +63,7 @@
 
 .price-checkout {
     flex: 1;
-    font-size: 64px;
+    font-size: 4rem;
     color: #333;
 }
 
@@ -76,7 +78,7 @@
 
 .costs {
     flex: 1;
-    font-size: 24px;
+    font-size: 1.5rem;
     margin-top: 20px;
     color: #333;
 }
@@ -97,7 +99,7 @@
 }
 
 .checkout-game-delete {
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer; 
     position: absolute;
     right: 1em;
@@ -115,7 +117,7 @@
 }
 
 .checkout-game-name, .checkout-game-price {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #333; 
 }
 
@@ -174,7 +176,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.2em;
-    transition: background-color 0.3s
+    transition: background-color 0.3s;
 }
 
 .confirm-pay-button:hover {
@@ -188,5 +190,36 @@
 }
 
 .game {
-    font-size: 24px;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .checkout-title {
+        font-size: 2rem;
+    }
+
+    .checkout-game-name, .checkout-game-price {
+        font-size: 1rem;
+    }
+
+    .price-checkout {
+        font-size: 2rem;
+    }
+
+    .confirm-pay-button {
+        font-size: 1em;
+    }
+
+    .costs {
+        font-size: 1rem;
+    }
+
+    .items-payment {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .payment-container {
+        height: fit-content;
+    }
 }

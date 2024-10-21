@@ -40,7 +40,6 @@ export default function Checkout() {
 
     return (
         <div className="checkout-container">
-            <div className="checkout-title">CHECKOUT</div>
             <div className="items-payment">
                 <div className="items">
                     <div className="items-container">
