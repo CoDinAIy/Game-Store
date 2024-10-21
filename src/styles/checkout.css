@@ -192,3 +192,15 @@
 .game {
     font-size: 1.5rem;
 }
+
+
+@media (max-width: 1700px) {
+    .personal-information-title {
+        margin-bottom: 0.25em;
+    }
+
+    .payment-container {
+        font-size: 1em;
+    }
+
+}
