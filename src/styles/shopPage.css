@@ -317,6 +317,11 @@ li {
 
     .about {
         font-size: 1em;
+        height: 70%;
+    }
+
+    .clicked-about-container {
+        height: 40%;
     }
 
     .game-facts {
