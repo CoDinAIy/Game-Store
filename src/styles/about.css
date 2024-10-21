@@ -86,32 +86,8 @@
     transform: scale(1.2);
 }
 
+
 @media all and (max-width: 1700px) {
-    .about-me-title {
-        font-size: 2.5rem;
-    }
-
-    .about-me-description {
-        width: 60%;
-    
-        padding: 1em;
-    }
-
-    .question {
-        font-size: 3rem;
-    }
-
-    .answer {
-        font-size: 1.5rem;
-    }
-
-    .links {
-        width: 10%;
-        bottom: 1em;
-    }
-}
-
-@media all and (max-width: 1400px) {
     .about-me-title {
         font-size: 2rem;
     }
