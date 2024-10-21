@@ -56,7 +56,7 @@
 }
 
 .tools-used img {
-    height: 5em;
+    height: 4em;
     transition: transform 0.3s ease;
 }
 
@@ -116,22 +116,37 @@
         font-size: 2rem;
     }
 
+    .tools-used img {
+        height: 2em;
+    }
+
     .about-me-description {
         width: 60%;
         padding: 1em;
     }
 
     .question {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .answer {
-        font-size: 1.5rem;
+        font-size: 1rem;
+        margin: 0;
     }
 
     .links {
         width: 10%;
         bottom: 1em;
+    }
+
+    .links > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .tools-used > img {
+        height: 40px;
+        width: 40px;
     }
 }
 
@@ -165,16 +180,6 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-    }
-
-    .links > img {
-        width: 50px;
-        height: 50px;
-    }
-
-    .tools-used > img {
-        height: 40px;
-        width: 40px;
     }
 }
 
