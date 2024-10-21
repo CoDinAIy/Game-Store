@@ -295,7 +295,7 @@ export default function ShopPage({currentFilter, title}) {
                             <div className="close-clicked-game" onClick={() => closeClickedGame()}>Close</div>
                             <div className="clicked-game-name">{selectedGame.name}</div>
                             <hr />
-                            <div className="about-container">
+                            <div className="clicked-about-container">
                                 <div className="about-title">About</div>
                                 {!selectedGame.description_raw ? <div className='loading-about'>Loading</div> : <div className="about">{selectedGame.description_raw}</div>}
                             </div>
