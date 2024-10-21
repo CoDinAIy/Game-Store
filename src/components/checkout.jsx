@@ -33,6 +33,9 @@ export default function Checkout() {
 
     const confirmPayment = () => {
         alert('Order Confirmed! (This is a front-end application so no further action occurs)')
+        modifyCart([])
+        setTotal(0)
+        
     }
 
     return (
@@ -41,7 +44,7 @@ export default function Checkout() {
             <div className="items-payment">
                 <div className="items">
                     <div className="items-container">
-                        <div className="price-checkout">PRICE</div>
+                        <div className="price-checkout">{`$${total.toFixed(2)}`}</div>
                         <div className="checkout-header">
                             <div className="game">Your Cart</div>
                         </div>
@@ -53,7 +56,7 @@ export default function Checkout() {
                                     <img className='checkout-game-image' src={game.background_image} alt="game image" height={120} width={180}/>
                                     <div className="checkout-game-info">
                                         <div className='checkout-game-name'>{game.name}</div>
-                                        <div className='checkout-game-price'>{game.randomPrice.toFixed(2)}</div>
+                                        <div className='checkout-game-price'>{game.price.toFixed(2)}</div>
                                         <div className="checkout-game-delete" onClick={() => removeGame(game)}>X</div>
                                     </div>
                                 </div>
@@ -63,9 +66,9 @@ export default function Checkout() {
                         )}
                         </div>
                         <div className="costs">
-                            <div className="subtotal-checkout">{`Subtotal: $${total}`}</div>
+                            <div className="subtotal-checkout">{`Subtotal: $${total.toFixed(2)}`}</div>
                             <div className="delivery-cost">{total > 0 ? `Delivery: $5.00` : `Delivery:`}</div>
-                            <div className="total-cost">{ total > 0 ? `Total: $${total + 5}` : 'Total: $0'}</div>
+                            <div className="total-cost">{ total > 0 ? `Total: $${(total + 5).toFixed(2)}` : 'Total: $0'}</div>
                         </div>
     
 
@@ -103,7 +106,7 @@ export default function Checkout() {
                             <input type="text" placeholder="Enter your country" />
                         </div>
                     </div>
-                    <button className="confirm-pay-button" onClick={() => confirmPayment()}>Pay</button>
+                    <button className="confirm-pay-button" onClick={cart.length > 0 ? () => confirmPayment() : () => alert('Add items in cart to checkout!')}>Pay</button>
                     </div>
                 </div>
             </div>

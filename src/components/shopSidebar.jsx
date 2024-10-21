@@ -14,7 +14,7 @@ export function Filters({filterList, currentFilter, setCurrentFilter, setTitle})
     return (
         <>
             {filterList.map((filter) => (
-                <div key={filter[0]} className={filter[0]} onClick={(e) => updateFilter(e, filter[0])}>
+                <div className={`filter-type ${currentFilter === filter[0] ? 'current-filter' : ''}`} key={filter[0]} onClick={(e) => updateFilter(e, filter[0])}>
                     {filter[1]}
                 </div>
             ))}
@@ -53,19 +53,21 @@ export default function Sidebar({currentFilter, setCurrentFilter, setTitle}) {
             <div className="content">
                 <div className="top-games filter-container">
                     <div className="top-games-title">Top</div>
-                    <div className="top-games">
+                    <div className="top-games-filter">
                         <Filters filterList={topFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} setTitle={setTitle}/>
                     </div>
                 </div>
+                <hr />
                 <div className="platforms filter-container">
                     <div className="platforms-title">Platforms</div>
-                    <div className="platforms">
+                    <div className="platforms-filter">
                         <Filters filterList={platformFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} setTitle={setTitle}/>
                     </div>
                 </div>
+                <hr />
                 <div className="genres filter-container">
                     <div className="genres-title">Genres</div>
-                    <div className="genres">
+                    <div className="genres-filter">
                         <Filters filterList={genreFilters} currentFilter={currentFilter} setCurrentFilter={setCurrentFilter} setTitle={setTitle}/>
                     </div>
                 </div>

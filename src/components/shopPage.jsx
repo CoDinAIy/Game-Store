@@ -25,6 +25,11 @@ const FetchData = ({currentFilter, sort}) => {
     const startDate = `${currentYear}-01-01`
     const endDate = `${currentYear}-12-31`
 
+    const randomPrice = () => {
+        const gamePrices = [2.99, 5.50, 6.90, 4.99, 3.50, 8.50];
+        return gamePrices[Math.floor(Math.random() * gamePrices.length)];
+    }
+
 
     const filters = {
         'all-time': 'https://api.rawg.io/api/games?key=1118413f30d3421eb485bf2a930ea5ac&page_size=50&&genres=action,strategy,shooter,adventure,puzzle,sports,racing,role-playing-games-rpg',
@@ -59,17 +64,25 @@ const FetchData = ({currentFilter, sort}) => {
     }
 
     useEffect(() => {
-        fetch(url, {mode: 'cors'})
-        .then((response) => {
-            if (response.status >= 400) {
-                throw new Error('server error')
-            }
-            return response.json()
-        })
-        .then((response) => setData(response))
-        .catch((error) => setError(error))
-        .finally(() => setLoading(false))
-    },[url])
+        fetch(url, { mode: 'cors' })
+            .then((response) => {
+                if (response.status >= 400) {
+                    throw new Error('server error');
+                }
+                return response.json();
+            })
+            .then((response) => {
+                const gamesWithPrices = response.results.map(game => ({
+                    ...game,
+                    price: randomPrice()
+                }));
+                setData({ ...response, results: gamesWithPrices });
+            })
+            .catch((error) => setError(error))
+            .finally(() => setLoading(false));
+    }, [url]);
+
+    return { error, loading, data };
 
 
 // fetch('https://api.rawg.io/api/games/3248?key=1118413f30d3421eb485bf2a930ea5ac', {mode: 'cors'})
@@ -85,24 +98,13 @@ const FetchData = ({currentFilter, sort}) => {
 //   .catch(error => {
 //     console.error('There has been a problem with your fetch operation:', error)
 //   });
-
-
-    return { error, loading, data}
 }
 
 
 
-export function GameCard({game, setSelectedGame, setScreenshots, screenshots, selectedGame, randomPrice}) {
+export function GameCard({game, setSelectedGame, setScreenshots, screenshots, selectedGame, UpdateCart}) {
     
     const [cart, modifyCart, total, setTotal] = useOutletContext();
-
-    const UpdateCart = (game) => {
-        if (!cart.includes(game)) {
-            const gameWithPrice = {...game, randomPrice}
-            modifyCart((prev) => [...prev, gameWithPrice])
-            setTotal((prev) => prev + randomPrice);
-        }
-    };
 
     const clickedGame = (game, setSelectedGame) => {
         const id = game.id
@@ -114,7 +116,8 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots, se
                     throw new Error('Server error')
                 }
                 const gameData = await gameResponse.json()
-                setSelectedGame(gameData)
+                const price = game.price
+                setSelectedGame({...gameData, price})
                 setScreenshots([gameData.background_image])
 
                 const screenshotsResponse = await fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
@@ -189,7 +192,7 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots, se
                 ) : (
                     <div className="added-to-cart">Added to Cart</div>
                 )}                    
-                <div className="game-card-price">{`$${randomPrice.toFixed(2)}`}</div>
+                <div className="game-card-price">{`$${game.price.toFixed(2)}`}</div>
                 </div>
                 <div className="platforms-supported-container">
                     {newPlatforms ? newPlatforms.map((platform) => (
@@ -208,7 +211,7 @@ export default function ShopPage({currentFilter, title}) {
     const [selectedGame, setSelectedGame] = useState(null)
     const [screenshots, setScreenshots] = useState(null)
     const [currentSlide, setCurrentSlide] = useState(0)
-
+    const [cart, modifyCart, total, setTotal] = useOutletContext();
     const [sort, setSort] = useState('')
 
     const {error, loading, data} = FetchData({currentFilter, sort})
@@ -232,11 +235,19 @@ export default function ShopPage({currentFilter, title}) {
         setCurrentSlide((prev) => (prev - 1 + screenshots.length) % screenshots.length);
     }
 
-    const randomPrice = () => {
-        const gamePrices = [2.99, 5.50, 6.90, 4.99, 3.50, 8.50]
-        return gamePrices[Math.floor(Math.random() * gamePrices.length)]
-    }
+    const UpdateCart = (game) => {
+        console.log(game.price)
+        if (!isGameInCart) {
+            modifyCart((prev) => [...prev, game])
+            setTotal((prev) => prev + game.price);
+            console.log(cart)
+            console.log(total)
+        }
+    };
 
+    let isGameInCart
+
+    selectedGame ? isGameInCart = cart.some((cartGame) => cartGame.id === selectedGame.id) : null
 
 
     return (
@@ -260,7 +271,7 @@ export default function ShopPage({currentFilter, title}) {
             {!loading && !error && (
                 <div className="section-two">
                     {games.map((game) => (
-                        <GameCard key={game.name} game={game} selectedGame={selectedGame} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots} randomPrice={randomPrice()}/>
+                        <GameCard key={game.name} game={game} selectedGame={selectedGame} setSelectedGame={setSelectedGame} setScreenshots={setScreenshots} screenshots={screenshots} UpdateCart={UpdateCart}/>
                     ))}
                 </div>
 
@@ -283,10 +294,12 @@ export default function ShopPage({currentFilter, title}) {
                         <div className="clicked-game-info">
                             <div className="close-clicked-game" onClick={() => closeClickedGame()}>Close</div>
                             <div className="clicked-game-name">{selectedGame.name}</div>
+                            <hr />
                             <div className="about-container">
                                 <div className="about-title">About</div>
                                 {!selectedGame.description_raw ? <div className='loading-about'>Loading</div> : <div className="about">{selectedGame.description_raw}</div>}
                             </div>
+                            <hr />
                             <div className="game-facts">
                                 <div className="released">Released: {selectedGame.released ? `${selectedGame.released.slice(8,10)}/${selectedGame.released.slice(5,7)}/${selectedGame.released.slice(0,4)}` : 'N/A'}</div>
                                 <div className="rating">Rating: {selectedGame.rating}</div>
@@ -294,6 +307,11 @@ export default function ShopPage({currentFilter, title}) {
                                 <div className="genres">Genres: {selectedGame.genres.map((genre, index) => index === selectedGame.genres.length - 1 ? genre.name : `${genre.name}, `)}</div>
                                 <div className="publishers">Publishers: {selectedGame.publishers.map((publisher, index) => index === selectedGame.publishers.length - 1 ? publisher.name : `${publisher.name}, `)}</div>
                             </div>
+                            {!isGameInCart ? (
+                                <button className='clicked-game-button' onClick={() => UpdateCart(selectedGame)}>Add to cart</button>                            
+                            ) : (
+                                <button className="clicked-added-to-cart">Added to Cart</button>
+                            )}  
                         </div>
                     </div>
                 </div> 

@@ -18,7 +18,7 @@ export default function Cart({setCartShow, cartShow, cart, modifyCart, total, se
         let newTotal = 0
         modifyCart(newCart)
         newCart.map((game) => {
-            newTotal += game.randomPrice
+            newTotal += game.price
         })
         setTotal(newTotal)
     }
@@ -64,7 +64,7 @@ export default function Cart({setCartShow, cartShow, cart, modifyCart, total, se
                                 <img className='cart-game-image' src={game.background_image} alt="game image" height={120} width={180}/>
                                 <div className="cart-game-info">
                                     <div className='cart-game-name'>{game.name}</div>
-                                    <div className='cart-game-price'>$4.99</div>
+                                    <div className='cart-game-price'>{game.price.toFixed(2)}</div>
                                 </div>
                         </div>
                     ))

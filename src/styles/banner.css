@@ -2,27 +2,81 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f8f9fa;
-    height: 50px;
-    width: 100%;
+    background-color: #1e1e1e;
+    height: 80px;
+    padding: 0 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    text-transform: uppercase;
+}
+
+.title:hover {
+    color: #f39c12; 
+    transform: scale(1.1);
 }
 
 .navigation {
     display: flex;
-    flex-basis: 35%;
-    gap: 5em;
-    font-size: 18px;
+    gap: 10em;
+    font-size: 24px;
+    text-transform: uppercase;
 }
 
-.title {
-    font-size: 24px;
-    flex-basis: 25%;
+.navigation a {
     font-weight: bold;
-    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    
+}
+
+.navigation a:hover {
+    color: #f39c12;
+    transform: scale(1.1);
 }
 
 .cart {
     display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
     justify-content: flex-end;
-    padding-right: 10px;
+}
+
+.cart img {
+    width: 45px;
+    height: 45px;
+    filter: brightness(0) invert(1);
+}
+
+.cart:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .banner {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 20px;
+    }
+    .title {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+    .navigation {
+        gap: 2em;
+    }
+    .cart img {
+        width: 40px;
+        height: 40px;
+    }
 }

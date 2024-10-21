@@ -7,6 +7,7 @@
     padding: 30px;
     color: white;
     gap: 1em;
+    scrollbar-width: none;
 }
 
 
@@ -20,11 +21,32 @@
     font-size: 32px;
     font-weight: 800;
     margin-bottom: 0.5em;
+    text-align: center;
 }
 
-.top-games, .platforms, .genres {
+.top-games-filter, .platforms-filter, .genres-filter {
+    text-align: center;
     display: flex;
     flex-direction: column;
     gap: 1em;
     font-size: 20px;
+}
+
+.filter-type {
+    transition: transform 0.3s ease;
+}
+
+.filter-type:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+    color: #f39c12;
+}
+
+hr {
+    width: 80%;
+}
+
+.current-filter {
+    transform: scale(1.2);
+    color: #f39c12;
 }
