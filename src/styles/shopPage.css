@@ -165,13 +165,13 @@ option {
 
 .clicked-game-name {
     margin-top: 50px;
-    font-size: 46px;
+    font-size: 3em;
     margin-right: 1rem;
     text-align: center;
 }
 
 .about-title {
-    font-size: 32px;
+    font-size: 2em;
     margin-bottom: 10px;
     text-align: center;
 }
@@ -189,7 +189,7 @@ option {
 }
 
 .game-facts {
-    font-size: 18px;
+    font-size: 1em;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -197,7 +197,7 @@ option {
 }
 
 .about {
-    font-size: 18px;
+    font-size: 1em;
     height: 80%;
     overflow-y: scroll;
     scrollbar-width: none;
