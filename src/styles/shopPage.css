@@ -296,8 +296,33 @@ li {
     .section-one {
         align-self: center;
     }
+
+    .clicked-game-name {
+        font-size: 2em;
+    }
+
+    .close-clicked-game {
+        font-size: 1em;
+    }
+
+    .about-title {
+        font-size: 1.5em;
+        margin-top: 10px;
+    }
+
+    .about {
+        font-size: 1em;
+    }
+
+    .game-facts {
+        font-size: 1em;
+    }
     .section-two {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .about-container {
+        padding: 1em;
     }
 }
 
@@ -305,6 +330,10 @@ li {
 
     .section-two {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-container {
+        padding: 0;
     }
 }
 
