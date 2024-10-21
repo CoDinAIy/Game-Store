@@ -11,8 +11,8 @@
 }
 
 .about-me-title {
-    font-size: 4rem;
-    margin: 0.25em 0;
+    font-size: 2rem;
+    margin: 1em 0;
     text-align: center;
     font-weight: bold;
     color: #ffcc00;
@@ -36,14 +36,14 @@
 }
 
 .question {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color: #ffcc00;
     margin-bottom: 0.2em;
 }
 
 .answer {
     margin: 0.5em 0 2em 0;
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: #ddd;
 }
