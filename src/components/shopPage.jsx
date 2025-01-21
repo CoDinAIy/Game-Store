@@ -14,10 +14,6 @@ import { useState, useEffect } from "react";
 
 const FetchData = ({currentFilter, sort}) => {
 
-
-    //have sort parameter
-    //depending on sort param add sort query to end of url
-
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -83,21 +79,6 @@ const FetchData = ({currentFilter, sort}) => {
     }, [url]);
 
     return { error, loading, data };
-
-
-// fetch('https://api.rawg.io/api/games/3248?key=1118413f30d3421eb485bf2a930ea5ac', {mode: 'cors'})
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok')
-//     }
-//     return response.json()
-//   })
-//   .then(data => {
-//     console.log(data)
-//   })
-//   .catch(error => {
-//     console.error('There has been a problem with your fetch operation:', error)
-//   });
 }
 
 
@@ -133,26 +114,6 @@ export function GameCard({game, setSelectedGame, setScreenshots, screenshots, se
         }
 
         fetchData()
-
-        // fetch(`https://api.rawg.io/api/games/${id}?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
-        // .then((response) => {
-        //         if (response.status >= 400) {
-        //                 throw new Error('Server error');
-        //             }
-        //             return response.json();
-        //         })
-        //         .then((response) => (setSelectedGame(response),console.log(response)))
-        //         .catch((error) => console.error(error));
-
-        // fetch(`https://api.rawg.io/api/games/${id}/screenshots?key=1118413f30d3421eb485bf2a930ea5ac`, { mode: 'cors' })
-        // .then((response) => {
-        //         if (response.status >= 400) {
-        //                 throw new Error('Server error');
-        //             }
-        //             return response.json();
-        //         })
-        //         .then((response) => (setScreenshots(response.results.map((result) => result.image))))
-        //         .catch((error) => console.error(error));  
 
     }
 
@@ -249,18 +210,44 @@ export default function ShopPage({currentFilter, title}) {
 
     selectedGame ? isGameInCart = cart.some((cartGame) => cartGame.id === selectedGame.id) : null
 
+    const [selectedOption, setSelectedOption] = useState('Popularity')
+    
+    const Dropdown = () => {
+        const [isOpen, setIsOpen] = useState(false)
+        
+        const toggleDropdown =() => {
+            setIsOpen((prev) => !prev)
+        }
+        
+        const handleOption = (option, e) => {
+            e.stopPropagation(); // Prevent the click event from propagating to the parent container
+            setIsOpen(false)
+            setSelectedOption(option)
+            setSorted(option)
+        }
+
+        return (
+            <div className={`dropdown-container ${isOpen ? "active" : ""}`} onClick={toggleDropdown}>
+              <div className="selected">{selectedOption}</div>
+              {isOpen && (
+                <ul className="options">
+                  <li onClick={(e) => handleOption("Popularity", e)}>Popularity</li>
+                  <li onClick={(e) => handleOption("Rating", e)}>Rating</li>
+                  <li onClick={(e) => handleOption("Newest", e)}>Newest</li>
+                </ul>
+              )}
+            </div>
+          );
+
+}
 
     return (
         <div className="main-container">
             <div className="section-one">
                 <div className="filter-title">{title}</div>
-                <div className="sort">
-                    <label className='sort-label' htmlFor="sort">Sort by:</label>
-                    <select className='sort-select' name='sort' id="sort" onChange={(e) => setSorted(e.target.value)}>
-                        <option value="Popularity">Popularity</option>
-                        <option value="Rating">Rating</option>
-                        <option value="Newest">Newest</option>
-                    </select>
+                <div className="sort-container">
+                    <div className="sort-title">Sort By:</div>
+                    <Dropdown current = {selectedOption}/>
                 </div>
             </div>
 

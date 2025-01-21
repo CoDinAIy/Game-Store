@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: #1e1e1e;
-    height: 80px;
+    height: 100px;
     padding: 0 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -17,15 +17,12 @@
     text-transform: uppercase;
 }
 
-.title:hover {
-    color: #f39c12;
-    transform: scale(1.1);
-}
+
 
 .navigation {
     display: flex;
     gap: 10em;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     text-transform: uppercase;
 }
 
@@ -36,9 +33,9 @@
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.navigation a:hover {
+.navigation a:hover, .title:hover, .cart img:hover {
     color: #f39c12;
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .cart {
@@ -55,9 +52,7 @@
     filter: brightness(0) invert(1);
 }
 
-.cart:hover {
-    transform: scale(1.1);
-}
+
 
 @media (max-width: 1200px) {
     .banner {
