@@ -54,7 +54,7 @@
 
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
     .banner {
         height: auto;
         padding: 20px 20px;
@@ -65,7 +65,7 @@
     }
     .navigation {
         gap: 5em;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
     .cart img {
         width: 2.5rem;

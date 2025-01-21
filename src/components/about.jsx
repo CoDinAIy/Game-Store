@@ -33,7 +33,7 @@ export default function About() {
                 <div className="question-answer">
                     <div className="question">What did I use?</div>
                     <div className="answer">
-                        This project utilizes React, JavaScript, HTML, and CSS. The RAWG public API enables real-time game data fetching and display. Click the RAWG icon for more info.
+                        This project utilizes React, JavaScript, HTML, and CSS. The RAWG public API enables real-time game data fetching and display.
                     </div>
                     <div className="tools-used">
                         <img src={html} alt="HTML icon" />

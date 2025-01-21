@@ -10,7 +10,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    transform: translateX(100%)
+    transform: translateX(100%);
 }
 
 @keyframes slideIn {
@@ -64,6 +64,7 @@
 .cart-items {
     position: relative;
     overflow-y: scroll;
+    scrollbar-width: none;
     height: 50%;
     display: flex;
     flex-direction: column;

@@ -19,14 +19,9 @@ export default function Checkout() {
         const newCart = cart.filter((existingGame) => existingGame !== game)
         modifyCart(newCart)
         setCurrentCart(newCart)
-        let newTotal = 0
-        modifyCart(newCart)
-        newCart.map((game) => {
-            newTotal += game.randomPrice
-        })
+        let newTotal = newCart.reduce((total, game) => total +game.price, 0)
         setTotal(newTotal)
 
-        console.log(cart)
     }
 
 

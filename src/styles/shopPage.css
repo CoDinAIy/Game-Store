@@ -122,12 +122,14 @@ option {
 
 .section-two {
     display: grid;
+    padding: 1em;
     grid-template-columns: repeat(4, 1fr);
     gap: 2em;
     margin: 2em 2em 2em 2em ;
     overflow-y: scroll;
     scrollbar-width: none;
     position: relative;
+    
 
 }
 
@@ -240,8 +242,7 @@ option {
 .about-title {
     font-size: 2em;
     margin-bottom: 10px;
-    text-align: center;
-}
+    padding-left: 10px;}
 
 .loading-about {
     font-size: 24px;
@@ -256,7 +257,7 @@ option {
 }
 
 .game-facts {
-    font-size: 1em;
+    font-size: 1.25em;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -264,8 +265,8 @@ option {
 }
 
 .about {
-    font-size: 1em;
-    height: 70%;
+    font-size: 1.25em;
+    height: 80%;
     overflow-y: scroll;
     scrollbar-width: none;
     padding: 10px;
@@ -360,7 +361,7 @@ li {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
-@media (max-width: 1600px) {
+@media (max-width: 1500px) {
     .section-one {
         align-self: center;
     }
@@ -370,21 +371,21 @@ li {
     }
 
     .clicked-game-name {
-        font-size: 1.5em;
+        font-size: 2em;
     }
 
     .close-clicked-game {
-        font-size: 1em;
+        font-size: 1.5em;
     }
 
     .about-title {
-        font-size: 1.5em;
+        font-size: 2em;
         margin-top: 10px;
     }
 
     .about {
         font-size: 1em;
-        height: 70%;
+        height: 75%;
     }
 
     .clicked-about-container {
@@ -396,6 +397,10 @@ li {
     }
     .section-two {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .filter-title {
+        text-align: center;
     }
 }
 
