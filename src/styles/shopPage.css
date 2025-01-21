@@ -361,7 +361,7 @@ li {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
-@media (max-width: 1500px) {
+@media (max-width: 1440px) {
     .section-one {
         align-self: center;
     }
@@ -404,10 +404,18 @@ li {
     }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1000px) {
 
     .section-two {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-title {
+        font-size: 2rem;
+    }
+
+    .sort-title {
+        font-size: 20px;
     }
 }
 
@@ -417,3 +425,5 @@ li {
         grid-template-columns: repeat(1, 1fr);
     }
 }
+
+

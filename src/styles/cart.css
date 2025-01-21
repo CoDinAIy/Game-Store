@@ -133,37 +133,3 @@
     gap: 1em;
 }
 
-@media (max-width: 1500px) {
-
-    .cart-container {
-        width: 400px;
-    }
-
-    .cart-game-image {
-        width: 150px;
-        height: 100px;
-        object-fit: cover;
-
-    }
-
-    .cart-game-name {
-        font-size: 1.25em;
-    }
-}
-
-@media (max-width: 1000px) {
-
-    .cart-container {
-        width: 300px;
-    }
-
-    .cart-game-image {
-        width: 100px;
-        height: 50;
-        object-fit: cover;
-    }
-
-    .cart-game-name {
-        font-size: 1em;
-    }
-}

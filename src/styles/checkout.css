@@ -33,7 +33,13 @@
     justify-content: space-evenly;
     border-radius: 8px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); 
+    font-size: 1em;
 }
+
+.personal-information-title {
+    margin-bottom: 0.25em;
+}
+
 
 .checkout-title {
     padding: 1em 0;
@@ -194,10 +200,7 @@
 }
 
 
-@media (max-width: 1700px) {
-    .personal-information-title {
-        margin-bottom: 0.25em;
-    }
+@media (max-width: 1440px) {
 
     .payment-container {
         font-size: 1em;

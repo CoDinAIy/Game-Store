@@ -11,7 +11,7 @@
 }
 
 .about-me-title {
-    font-size: 3rem;
+    font-size: 2rem;
     margin: 1em 0;
     text-align: center;
     font-weight: bold;
@@ -37,14 +37,14 @@
 }
 
 .question {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #ffcc00;
     margin-bottom: 0.2em;
 }
 
 .answer {
     margin: 0.5em 0 2em 0;
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: #ddd;
 }
@@ -52,6 +52,7 @@
 .tools-used {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 2em;
     gap: 1em;
 }
@@ -67,7 +68,7 @@
 
 .links {
     position: absolute;
-    bottom: 4em;
+    bottom: 2em;
     padding: 1em;
     width: 10%;
     background-color: rgb(255, 255, 255);
@@ -87,95 +88,52 @@
     transform: scale(1.2);
 }
 
-
-@media (max-width: 2000px) {
-    .about-me-title {
-        font-size: 2rem;
-    }
-
-    .tools-used img {
-        height: 2em;
-    }
-
+@media (max-width: 1440px) {
     .about-me-description {
-        width: 60%;
         padding: 1em;
         height: auto;
     }
 
-    .question {
-        font-size: 2rem;
-    }
-
-    .answer {
-        font-size: 1.25rem;
-        margin: 0;
-    }
-
-    .links {
-        width: 10%;
-        bottom: 1em;
-    }
-
-    .links > img {
+    .tools-used > img {
         width: 50px;
         height: 50px;
     }
 
-    .tools-used {
-        margin-top: 3em;
-    }
-
-    .tools-used > img {
-        height: 70px;
-        width: 70px;
-    }
-}
-
-@media (max-width: 1400px) {
-    .about-me-title {
-        font-size: 2rem;
-        padding: 1em;
-    }
-
-    .about-container {
-        overflow: scroll;
-    }
-
-    .about-me-description {
-        min-width: 70%;
-        padding: 1em;
-    }
-
-    .question {
-        font-size: 2rem;
-    }
-
-    .answer {
-        font-size: 1rem;
-    }
-
     .links {
-        position: relative;
-        margin-top: 3em;
-        width: 10%;
-        /* display: flex;
-        align-items: center;
-        flex-direction: column; */
+        padding: 0.5em;
     }
 }
 
 @media (max-width: 1000px) {
+    .about-container {
+        padding: 0;
+    }
+}
 
-    .tools-used > img {
-        height: 50px;
-        width: 50px;
+@media (max-width: 800px) {
+    .question {
+        font-size: 1.25em;
+    }
+
+    .answer {
+        font-size: 0.75em;
+    }
+
+    .about-me-description {
+        width: 50%;
     }
 
     .links > img {
-        width: 30px;
         height: 30px;
+        width: 30px;
+    }
+
+    .links {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
     }
 
 }
+
 

@@ -36,39 +36,23 @@
 }
 
 .home-title {
-    font-size: 4rem;
+    font-size: 3rem;
 }
 
 .home-description {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
-@media (max-width: 768px) {
-    .home-title {
-        font-size: 2rem;
-    }
-
-    .home-description {
-        font-size: 1.2rem;
-    }
-
+@media (max-width: 1440px) {
     .shop-button {
-        padding: 0.5em 1em;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .home-title {
-        font-size: 1.5rem;
-    }
-
-    .home-description {
         font-size: 1rem;
     }
 
-    .shop-button {
-        padding: 0.5em 0.8em;
-        font-size: 0.8rem;
+    .home-title {
+        font-size: 2.5rem;
+    }
+
+    .home-description {
+        font-size: 1.5rem;
     }
 }
